@@ -17,11 +17,11 @@ exports.getUpcomingElections = (req,res) => {
     let ocdIdStatePlace = `${ocdIdState}/place:${place}`
     let ocdIdStr = `${ocdIdState},${ocdIdStatePlace}`
   
-    const search = new SearchUpcomingElections(state, place, ocdIdStr);
-    search.validateUserInput();
+    const searchModel = new SearchUpcomingElections(state, place, ocdIdStr);
+    searchModel.validateUserInput();
 
-    if(search.errors.length > 0){
-        res.render('index', { title: 'Find My Election', states: us_states, error: search.errors.toString() })
+    if(searchModel.errors.length > 0){
+        res.render('index', { title: 'Find My Election', states: us_states, error: searchModel.errors.toString() })
     }
     
     else{
@@ -31,9 +31,8 @@ exports.getUpcomingElections = (req,res) => {
         .then((response)=>response.json())
         .then((responseJSON)=>{
             let upcomingElectionsArr = responseJSON;
-            if(upcomingElectionsArr.length>0){  
-                console.log(upcomingElectionsArr)
-                res.render('search',{ upcomingElectionsArr: upcomingElectionsArr });
+            if(upcomingElectionsArr.length > 0){  
+                res.render('search', { upcomingElectionsArr: upcomingElectionsArr });
             }
             else if(upcomingElectionsArr.length === 0){
                 res.render('index', {title: 'Find My Election', states: us_states, error: 'No upcoming state or municipal elections in your area'});
