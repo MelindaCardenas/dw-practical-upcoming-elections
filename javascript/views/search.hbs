@@ -1,0 +1,22 @@
+<div>
+    <header>
+        <h1>Upcoming Elections</h1>
+    </header>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        {{#each upcomingElectionsArr}}
+            <tr>
+                <td>{{convertToDate this.date}}</td>
+                <td>{{this.type}}</td>
+                <td>{{this.description}}</td>
+            </tr>
+        {{/each}}
+    </table>  
+    <script>
+
+    </script>   
+</div>
