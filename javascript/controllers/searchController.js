@@ -3,16 +3,15 @@ const fetch = require('node-fetch');
 const hbs = require('hbs');
 const SearchUpcomingElections = require('../models/SearchUpcomingElections')
 
-hbs.registerHelper('convertToDate', function (str) {
-    let date = new Date(str)
-    let localDate = new Date(date)
-    console.log(localDate.toLocaleString()) 
-    return localDate.toLocaleString(); 
+hbs.registerHelper('formatDate', function (str) {
+    let dateTimeStr = (new Date(str)).toLocaleString('en-GB', { timeZone: 'UTC' })
+    date = dateTimeStr.split(',')[0]
+    return date; 
 });
 
 exports.getUpcomingElections = (req,res) => {
     let state = req.body.state.toLowerCase();
-    let place = req.body.city.toLowerCase().replace(/ /g,'_');
+    let place = req.body.city.toLowerCase().replace(/ /g,'_').replace(/\./g, '');
     
     let ocdIdState = `ocd-division/country:us/state:${state}`
     let ocdIdStatePlace = `${ocdIdState}/place:${place}`
