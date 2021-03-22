@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Find My Election', states: us_states });
 });
 
+/* POST search page. */
 router.post('/search', searchController.getUpcomingElections);
 
 module.exports = router;
