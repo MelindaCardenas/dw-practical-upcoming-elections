@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  color: #173A6D;
 }
 
 form {
@@ -40,4 +41,26 @@ input:focus {
 
 button {
   margin-left: .5em;
+}
+
+header {
+  border-bottom: 0.25em solid #00a6c5;
+}
+
+table, th, td {
+  border: 0.1em solid #173A6D;
+  border-collapse: collapse;
+}
+
+table {
+  width: 100%;
+  margin: 2em 0 2em 0
+}
+
+th, td {
+  padding: 1em;
+}
+
+.error {
+  color: red;
 }
