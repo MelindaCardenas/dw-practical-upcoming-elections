@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-
 const Search = function(state, place){
     this.state = state;
     this.place = place;
