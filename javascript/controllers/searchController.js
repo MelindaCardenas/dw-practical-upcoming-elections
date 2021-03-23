@@ -9,13 +9,9 @@ hbs.registerHelper('formatDate', function (str) {
     return date; 
 });
 
-exports.getUpcomingElections = (req,res) => {
-    let state = req.body.state.toLowerCase();
-    let place = req.body.city.toLowerCase().replace(/ /g,'_').replace(/\./g, '');
-    
-    let ocdIdState = `ocd-division/country:us/state:${state}`
-    let ocdIdStatePlace = `${ocdIdState}/place:${place}`
-    let ocdIdStr = `${ocdIdState},${ocdIdStatePlace}`
+const getUpcomingElections = (req,res) => {
+    const {state, city} = req.body;
+    const ocdIdStr = getOcdId(state, city);
   
     const searchModel = new SearchUpcomingElections(state, place, ocdIdStr);
     searchModel.validateUserInput();
@@ -39,4 +35,18 @@ exports.getUpcomingElections = (req,res) => {
             }
         })
     }
+}
+
+const getOcdId = (state, city) => {
+    state = state.toLowerCase();
+    place = city.toLowerCase().replace(/ /g,'_').replace(/\./g, '');
+
+    let ocdIdState = `ocd-division/country:us/state:${state}`
+    let ocdIdStatePlace = `${ocdIdState}/place:${place}`
+    return `${ocdIdState},${ocdIdStatePlace}`
+}
+
+module.exports = {
+    getUpcomingElections,
+    getOcdId
 }
